@@ -4,6 +4,8 @@ import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import path from "path";
 import connectDb from "./config/connectDb.js";
+import corsOptions from "./config/corsOptions.js";
+import credentials from "./middlewares/credentials.js";
 import * as dotenv from "dotenv";
 dotenv.config();
 
@@ -15,7 +17,8 @@ const app = express();
 connectDb();
 
 // Middlewares
-app.use(cors());
+app.use(credentials);
+app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
