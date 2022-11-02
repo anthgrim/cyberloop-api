@@ -3,7 +3,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import path from "path";
-import connectDb from "./config/connectDb.js";
+import connectDB from "./config/connectDb.js";
 import corsOptions from "./config/corsOptions.js";
 import credentials from "./middlewares/credentials.js";
 import * as dotenv from "dotenv";
@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 8080;
 const app = express();
 
 // Connect to Database
-connectDb();
+connectDB();
 
 // Middlewares
 app.use(credentials);
