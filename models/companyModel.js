@@ -1,4 +1,4 @@
-import { Schema, models, model } from "mongoose";
+import { Schema, model } from "mongoose";
 
 const companySchema = new Schema(
   {
@@ -27,7 +27,7 @@ const companySchema = new Schema(
       type: String,
       required: true,
     },
-    paymentToken: {
+    subscriptionId: {
       type: String,
       required: true,
     },
@@ -35,6 +35,6 @@ const companySchema = new Schema(
   { timestamps: true }
 );
 
-const company = models.Company || model("Company", companySchema);
+const company = model("Company", companySchema);
 
 export default company;
