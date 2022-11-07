@@ -1,41 +1,41 @@
-import { Schema, model } from "mongoose";
+import { Schema, model } from 'mongoose'
 
 const userSchema = new Schema(
   {
     companyId: {
       type: Schema.Types.ObjectId,
-      ref: "Company",
-      required: true,
+      ref: 'Company',
+      required: true
     },
     firstName: {
       type: String,
-      required: true,
+      required: true
     },
     lastName: {
       type: String,
-      required: true,
+      required: true
     },
     email: {
       type: String,
-      required: true,
+      required: true
     },
     password: {
       type: String,
-      required: true,
+      required: true
     },
     refreshToken: {
       type: String,
-      default: "",
+      default: ''
     },
     admin: {
       type: Boolean,
       required: true,
-      default: false,
-    },
+      default: false
+    }
   },
   { timestamps: true }
-);
+)
 
-const user = model("User", userSchema);
+const user = model('User', userSchema)
 
-export default user;
+export default user
