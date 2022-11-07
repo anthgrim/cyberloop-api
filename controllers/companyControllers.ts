@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import Company from '../models/companyModel'
 import User from '../models/userModel'
-import bcryp from 'bcrypt'
+import * as bcrypt from 'bcrypt'
 import { SpecialRequest } from '../types'
 import { Response } from 'express'
 
@@ -88,7 +88,7 @@ export const createCompany = async (
 
     if (newCompany) {
       // Hash password
-      const hashedPassword = await bcryp.hash(password, 10)
+      const hashedPassword = await bcrypt.hash(password, 10)
 
       // Create new user
       const newUser = await User.create({
@@ -364,7 +364,7 @@ export const createCompanyUser = async (
     }
 
     // Hash password
-    const hashedPassword = await bcryp.hash(password, 10)
+    const hashedPassword = await bcrypt.hash(password, 10)
 
     // Create new user
     const newUser = await User.create({

@@ -1,5 +1,5 @@
 import express from 'express'
-import connectDB from './config/connectDb'
+import { connectDB } from './config/connectDb'
 import mongoose from 'mongoose'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
@@ -36,6 +36,10 @@ if (process.env.NODE_ENV === 'production') {
 
   app.get('*', (_req, res) => {
     res.sendFile(path.resolve(__dirname, 'public', 'index.html'))
+  })
+} else {
+  app.get('*', (_req, res) => {
+    res.send('Running on port 8080')
   })
 }
 

@@ -1,4 +1,4 @@
-import allowedOrigins from '../config/allowedOrigins'
+import { allowedOrigins } from '../config/allowedOrigins'
 import { SpecialRequest } from '../types'
 import { Response, NextFunction } from 'express'
 

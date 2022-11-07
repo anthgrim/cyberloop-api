@@ -1,5 +1,5 @@
 import { origin } from '../types'
-import allowedOrigins from './allowedOrigins'
+import { allowedOrigins } from './allowedOrigins'
 
 const corsOptions: origin = {
   origin: (origin: string, callback: any) => {
