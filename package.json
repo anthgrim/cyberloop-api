@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "CyberLoop Platform API",
   "main": "server.js",
-  "type": "commonjs",
   "scripts": {
     "start": "node build/server.js",
     "dev": "ts-node-dev server.ts",
