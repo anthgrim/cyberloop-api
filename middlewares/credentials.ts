@@ -1,5 +1,5 @@
-import allowedOrigins from '../config/allowedOrigins.js'
-import { SpecialRequest } from '../types.js'
+import allowedOrigins from '../config/allowedOrigins'
+import { SpecialRequest } from '../types'
 import { Response, NextFunction } from 'express'
 
 const credentials = async (

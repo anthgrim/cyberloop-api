@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-import Company from '../models/companyModel.js'
-import User from '../models/userModel.js'
+import Company from '../models/companyModel'
+import User from '../models/userModel'
 import bcryp from 'bcrypt'
 import { SpecialRequest } from '../types'
 import { Response } from 'express'
