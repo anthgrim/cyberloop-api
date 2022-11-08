@@ -4,6 +4,7 @@
 import User from '../models/userModel'
 import * as bcrypt from 'bcrypt'
 import { SpecialRequest, TokenPayload } from '../types'
+import { accessSecret, refreshSecret } from '../utils/Secrets'
 import { Response } from 'express'
 import jwt from 'jsonwebtoken'
 
@@ -51,16 +52,12 @@ export const signIn = async (
       id: targetUser._id
     }
 
-    // Get token secrets
-    const accessTokenSecret: any = process.env.ACCESS_TOKEN_SECRET
-    const refreshTokenSecret: any = process.env.REFRESH_TOKEN_SECRET
-
     // Generate jwt token
-    const accessToken = jwt.sign(tokenPayload, accessTokenSecret, {
+    const accessToken = jwt.sign(tokenPayload, accessSecret, {
       expiresIn: '15m'
     })
 
-    const refreshToken = jwt.sign(tokenPayload, refreshTokenSecret, {
+    const refreshToken = jwt.sign(tokenPayload, refreshSecret, {
       expiresIn: '1d'
     })
 
@@ -184,25 +181,22 @@ export const getNewAccessToken = async (
     }
 
     // Get refresh token secret
-    const refreshTokenSecret: any = process.env.REFRESH_TOKEN_SECRET
-    const accessTokenSecret: any = process.env.ACCESS_TOKEN_SECRET
-
-    jwt.verify(token, refreshTokenSecret, (err: any, decoded: any) => {
+    jwt.verify(token, refreshSecret, (err: any, decoded: any) => {
       if (err ?? decoded.id !== targetUser._id) {
+        console.log(err)
         return res.status(403).json({
-          message: 'Unauthenticated User'
+          message: 'Unauthenticated User',
+          err
         })
       }
 
       // Token payload
-      const tokenPayload = {
-        id: targetUser._id,
-        companyId: targetUser.companyId,
-        isAdmin: targetUser.admin
+      const tokenPayload: TokenPayload = {
+        id: targetUser._id
       }
 
       // Get new access token
-      const accessToken = jwt.sign(tokenPayload, accessTokenSecret, {
+      const accessToken = jwt.sign(tokenPayload, accessSecret, {
         expiresIn: '15m'
       })
 
