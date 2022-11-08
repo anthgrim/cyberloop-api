@@ -24,5 +24,5 @@ export interface SpecialResponse extends Response {
 }
 
 export interface TokenPayload extends JwtPayload {
-  id?: string
+  id?: any
 }
