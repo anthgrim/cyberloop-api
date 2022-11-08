@@ -33,8 +33,8 @@ app.use(cookieParser())
 
 // Public Routes
 app.use('/api/company', companyRoutes)
-app.get('*', (_req, res) => {
-  res.send('Running on port 8080')
+app.get('/', (_req, res) => {
+  res.send(`Running on port ${PORT}`)
 })
 
 // Initialize app when mongodb connection is open
