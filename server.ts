@@ -1,9 +1,8 @@
 import express from 'express'
-import { connectDB } from './config/connectDb'
-import mongoose from 'mongoose'
+import { MongooseOptions } from './types'
 import cors from 'cors'
+import mongoose from 'mongoose'
 import cookieParser from 'cookie-parser'
-import path from 'path'
 import credentials from './middlewares/credentials'
 import corsOptions from './config/corsOptions'
 import companyRoutes from './routes/companyRoutes'
@@ -17,7 +16,12 @@ const app = express()
 
 // Connect to Database
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
-connectDB()
+const dbUri: any = process.env.DB_URI
+const options: MongooseOptions = {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}
+mongoose.connect(dbUri, options, () => console.log('Connected to db'))
 
 // Middlewares
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
@@ -29,23 +33,11 @@ app.use(cookieParser())
 
 // Public Routes
 app.use('/api/company', companyRoutes)
-
-// Serve files if in production
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('./public/index.html'))
-
-  app.get('*', (_req, res) => {
-    res.sendFile(path.resolve(__dirname, 'public', 'index.html'))
-  })
-} else {
-  app.get('*', (_req, res) => {
-    res.send('Running on port 8080')
-  })
-}
+app.get('*', (_req, res) => {
+  res.send('Running on port 8080')
+})
 
 // Initialize app when mongodb connection is open
-mongoose.connection.once('open', () => {
-  app.listen(PORT, () =>
-    console.log(`Server running on port http://localhost:${PORT}`)
-  )
-})
+app.listen(PORT, () =>
+  console.log(`Server running on port http://localhost:${PORT}`)
+)
