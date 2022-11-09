@@ -8,6 +8,7 @@ import credentials from './middlewares/credentials'
 import corsOptions from './config/corsOptions'
 import companyRoutes from './routes/companyRoutes'
 import userRoutes from './routes/userRoutes'
+import projectRoutes from './routes/projectRoutes'
 import * as dotenv from 'dotenv'
 
 dotenv.config()
@@ -31,6 +32,7 @@ app.use(cookieParser())
 // Public Routes
 app.use('/api/company', companyRoutes)
 app.use('/api/user', userRoutes)
+app.use('/api/project', projectRoutes)
 app.get('/', (_req, res) => {
   res.send(`Running on port ${PORT}`)
 })
