@@ -182,20 +182,18 @@ export const getNewAccessToken = async (
 
     // Get refresh token secret
     jwt.verify(token, refreshSecret, (err: any, decoded: any) => {
-      if (err ?? decoded.id !== targetUser._id) {
-        console.log(err)
-        return res.status(403).json({
-          message: 'Unauthenticated User',
-          err
-        })
+      if (err ?? targetUser.id !== decoded.id) {
+        return res.sendStatus(403)
       }
 
-      // Token payload
-      const tokenPayload: TokenPayload = {
-        id: targetUser._id
+      // jwt payload
+      const tokenPayload = {
+        id: targetUser._id,
+        companyId: targetUser.companyId,
+        isAdmin: targetUser.admin
       }
 
-      // Get new access token
+      // Create new access token
       const accessToken = jwt.sign(tokenPayload, accessSecret, {
         expiresIn: '15m'
       })
